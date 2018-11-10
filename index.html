@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en-us">
 
@@ -124,6 +123,7 @@
 
         //track double match
         var winDoublePoint = 0;
+
         //track one match
         var winPoint = 0;
 
@@ -133,6 +133,7 @@
 
         //begin ONKEYUP event
         document.onkeyup = function (event) {
+
             winPoint = 0;
             winDoublePoint = 0;
 
@@ -155,6 +156,13 @@
 
             //tracker for match or no match
             var match = 0;
+
+            for (var i = -1; i < inputTracker; i++) {
+                if (" " + userGuess == previousGuesses[i]) {
+                    console.log("You already typed that!");
+                    return -1;
+                }
+            }
 
             function wordArray() {
 
@@ -313,12 +321,12 @@
 
                 //detect if there's one or two matches
                 else {
-                    // if double match set winDoublePoint to + 1
+                    // if double match set winDoublePoint to 2
                     if (winDoublePoint == 1) {
                         winDoublePoint = 2;
                     }
 
-                    // if just one match set winPoint to + 1
+                    // if just one match set winPoint to 2
                     if (winPoint == 1) {
                         winPoint = 2;
                     }
@@ -360,31 +368,22 @@
             }
 
             // // store current guess in the corresponding order
-            // previousGuesses[inputTracker] = " " + userGuess;
-
-            // we need to look at the past entries of previousGuesses and avoid winpoints if current user guess is equal to any of those indexes
-
-            // loop until current entry
-            // console.log("inputTracker is: " + inputTracker);
-            // console.log("userGuess is: " + userGuess);
-
-            // for(var i=0; i<inputTracker; i++){
-
-            //     console.log("inputTracker inside for loop is: " + inputTracker);
-            //     console.log("userGuess inside for loop is: " + userGuess);
-
-
-            //     if (userGuess == " " + previousGuesses[i]){
-            //         alert("Please choose a different letter");
-            //     }
-            // }
+            previousGuesses[inputTracker] = " " + userGuess;
 
             //after onkey event add one to the input tracker
             inputTracker = inputTracker + 1;
 
+            console.log("Is inputTracker increasing?: " + inputTracker); //yes
+
             document.getElementById('lettersguessed').innerHTML = " " + previousGuesses;
 
+            console.log("Let's look at previousGuesses: " + previousGuesses);
+
+            
+
         };//end onkey event
+
+
 
     </script>
 
@@ -392,6 +391,3 @@
 </body>
 
 </html>
-=======
-
->>>>>>> 7a18a236967e680becc322dbac05385da107a923
