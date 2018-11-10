@@ -1,0 +1,53 @@
+h1{
+    color: black;
+    text-align: center;
+    background-image: linear-gradient(white, rgba(92, 1, 1, 0.644));
+    vertical-align: 50%;
+    padding: 50px;
+    margin-bottom: 0px;
+    font-size: 3em;
+    border-radius: 20px;
+    box-shadow: 5px 5px 2px grey;
+}
+
+body{
+    background-color: lightskyblue; 
+    color: rgb(165, 206, 164);
+    text-align: center;
+    vertical-align: 50%;
+}
+
+h2{
+    color: white;
+    text-align: center;
+    background-color: rgb(75, 122, 224);
+    vertical-align: 50%;
+    padding: 40px;
+    margin-top:0px;
+    margin-bottom: 0px;
+    border-radius: 25px;
+    box-shadow: 5px 5px 2px grey;
+
+}
+
+p{
+    color: black;
+    text-align: center;
+    background-image: linear-gradient( rgb(161, 205, 255), white);
+    vertical-align: 50%;
+    padding: 30px;
+    font-size: 3em;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-radius: 35px;
+    box-shadow: 5px 5px 2px grey;
+
+}
+h3{
+    color: black;
+    background-color: azure;
+    padding: 10px;
+    border-radius: 30px;
+    box-shadow: 5px 5px 2px grey;
+
+}

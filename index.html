@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HangMan Electronics</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h1>
+        HangMan Electronics
+    </h1>
+
+    <h2>
+        Lifepoints: <span id="lifepoints"></span>
+
+    </h2>
+
+    <!--Show empty spaces for letters-->
+    <p>
+        <span id="zero">_</span>
+        <span id="one">_</span>
+        <span id="two">_</span>
+        <span id="three">_</span>
+        <span id="four">_</span>
+        <span id="five">_</span>
+        <span id="six">_</span>
+        <span id="seven">_</span>
+        <span id="eight">_</span>
+        <span id="nine">_</span>
+        <br>
+    </p>
+
+    <h3>
+        Letters guessed: <span id="lettersguessed">Press any key to start!</span>
+    </h3>
+
+    <!--Begin Javascript-->
+    <script>
+
+        //Starting lifepoints
+        var lifePnts = 9;
+
+        //array to store words to guess
+        var wordOne = ["computer", "laptop", "cables", "speakers", "monitor", "projector", "interface", "technology", "phone", "static", "reboot"];
+
+        //randomizer for the word index
+        var randomNum = Math.floor(Math.random() * 10);
+
+        //import selected word into variable chosenWord
+        chosenWord = wordOne[randomNum];
+
+        //track user inputs to avoid repeats
+        var input1 = [];
+
+        //detect word length to erase extra spots
+        var extraDetector = chosenWord.length;
+        console.log("The length of the word is: " + extraDetector);
+
+        //erase extra spots
+        //if word is 5
+        if (extraDetector == 5) {
+
+            var positionzero = document.getElementById("five");
+            positionzero.textContent = " ";
+            positionzero = document.getElementById("six");
+            positionzero.textContent = " ";
+            positionzero = document.getElementById("seven");
+            positionzero.textContent = " ";
+            positionzero = document.getElementById("eight");
+            positionzero.textContent = " ";
+            positionzero = document.getElementById("nine");
+            positionzero.textContent = " ";
+
+        }
+        //if word is 6
+        if (extraDetector == 6) {
+
+            var positionzero = document.getElementById("six");
+            positionzero.textContent = " ";
+            positionzero = document.getElementById("seven");
+            positionzero.textContent = " ";
+            positionzero = document.getElementById("eight");
+            positionzero.textContent = " ";
+            positionzero = document.getElementById("nine");
+            positionzero.textContent = " ";
+
+        }
+        //if word is 7
+        if (extraDetector == 7) {
+
+            var positionzero = document.getElementById("seven");
+            positionzero.textContent = " ";
+            positionzero = document.getElementById("eight");
+            positionzero.textContent = " ";
+            positionzero = document.getElementById("nine");
+            positionzero.textContent = " ";
+
+        }
+        //if word is 8
+        if (extraDetector == 8) {
+
+            var positionzero = document.getElementById("eight");
+            positionzero.textContent = " ";
+            positionzero = document.getElementById("nine");
+            positionzero.textContent = " ";
+
+        }
+        //if word is 9
+        if (extraDetector == 9) {
+
+            var positionzero = document.getElementById("nine");
+            positionzero.textContent = " ";
+
+        }
+
+        //used to track number of inputs
+        var inputTracker = 0;
+
+        // create array to store previous guesses
+        var previousGuesses = [];
+
+        //track double match
+        var winDoublePoint = 0;
+        //track one match
+        var winPoint = 0;
+
+        //total points
+        var totalPoints = 0;
+
+
+        //begin ONKEYUP event
+        document.onkeyup = function (event) {
+            winPoint = 0;
+            winDoublePoint = 0;
+
+            console.log("the winPoint before the onkey code is: " + winPoint);
+            console.log("the winDoublePoint after the onkey function wordarray is: " + winDoublePoint);
+
+            //Show lifepoints
+            var points = document.getElementById("lifepoints");
+            points.textContent = lifePnts;
+            //initialize loosing points tracker to zero
+            loosePoint = 0;
+
+            if (lifePnts <= 0) {
+                alert("Game Over!");
+                return -1;
+            }
+
+            // Determines which key was pressed.
+            var userGuess = event.key;
+
+            //tracker for match or no match
+            var match = 0;
+
+            function wordArray() {
+
+                //index tracker for which letter is matched
+                var matchedIndex = -1;
+                var matchedIndex2 = -1;
+
+
+                //will loop according to the word's length
+                for (var i = 0; i < chosenWord.length; i++) {
+
+
+                    var theWordArray = [];
+                    var a = chosenWord.charAt(i);
+                    theWordArray[i] = a;
+
+                    //check if user entry matches the selected character
+                    if (userGuess === theWordArray[i]) {
+                        match += 1;
+                        if (match == 1) {
+                            //store letter place
+                            matchedIndex = i;
+                        };
+                        //in case there's two matches
+                        if (match == 2) {
+                            matchedIndex2 = i;
+                        };
+                    }
+                    else {
+                    };
+
+
+
+                    //detect if theres a match on either
+                    if (matchedIndex > -1 || matchedIndex2 > -1) {
+
+                        if (matchedIndex == 0) {
+                            //link to html at correct location
+                            var positionzero = document.getElementById("zero");
+                            positionzero.textContent = userGuess;
+
+                            winPoint = 1;
+                        }
+                        else if (matchedIndex == 1) {
+                            var positionzero = document.getElementById("one");
+                            positionzero.textContent = userGuess;
+                            winPoint = 1;
+                        }
+                        else if (matchedIndex == 2) {
+                            var positionzero = document.getElementById("two");
+                            positionzero.textContent = userGuess;
+                            winPoint = 1;
+                        }
+                        else if (matchedIndex == 3) {
+                            var positionzero = document.getElementById("three");
+                            positionzero.textContent = userGuess;
+                            winPoint = 1;
+                        }
+                        else if (matchedIndex == 4) {
+                            var positionzero = document.getElementById("four");
+                            positionzero.textContent = userGuess;
+                            winPoint = 1;
+                        }
+                        else if (matchedIndex == 5) {
+                            var positionzero = document.getElementById("five");
+                            positionzero.textContent = userGuess;
+                            winPoint = 1;
+                        }
+                        else if (matchedIndex == 6) {
+                            var positionzero = document.getElementById("six");
+                            positionzero.textContent = userGuess;
+                            winPoint = 1;
+                        }
+                        else if (matchedIndex == 7) {
+                            var positionzero = document.getElementById("seven");
+                            positionzero.textContent = userGuess;
+                            winPoint = 1;
+                        }
+                        else if (matchedIndex == 8) {
+                            var positionzero = document.getElementById("eight");
+                            positionzero.textContent = userGuess;
+                            winPoint = 1;
+                        }
+                        else if (matchedIndex == 9) {
+                            var positionzero = document.getElementById("nine");
+                            positionzero.textContent = userGuess;
+                            winPoint = 1;
+                        }
+
+
+                        //detect if there's a repeating letter in same word
+                        if (matchedIndex2 == 0) {
+                            //link to html at correct location
+                            var positionzero = document.getElementById("zero");
+                            positionzero.textContent = userGuess;
+                            winDoublePoint = 1;
+                        }
+                        else if (matchedIndex2 == 1) {
+                            var positionzero = document.getElementById("one");
+                            positionzero.textContent = userGuess;
+                            winDoublePoint = 1;
+                        }
+                        else if (matchedIndex2 == 2) {
+                            var positionzero = document.getElementById("two");
+                            positionzero.textContent = userGuess;
+                            winDoublePoint = 1;
+                        }
+                        else if (matchedIndex2 == 3) {
+                            var positionzero = document.getElementById("three");
+                            positionzero.textContent = userGuess;
+                            winDoublePoint = 1;
+                        }
+                        else if (matchedIndex2 == 4) {
+                            var positionzero = document.getElementById("four");
+                            positionzero.textContent = userGuess;
+                            winDoublePoint = 1;
+                        }
+                        else if (matchedIndex2 == 5) {
+                            var positionzero = document.getElementById("five");
+                            positionzero.textContent = userGuess;
+                            winDoublePoint = 1;
+                        }
+                        else if (matchedIndex2 == 6) {
+                            var positionzero = document.getElementById("six");
+                            positionzero.textContent = userGuess;
+                            winDoublePoint = 1;
+                        }
+                        else if (matchedIndex2 == 7) {
+                            var positionzero = document.getElementById("seven");
+                            positionzero.textContent = userGuess;
+                            winDoublePoint = 1;
+                        }
+                        else if (matchedIndex2 == 8) {
+                            var positionzero = document.getElementById("eight");
+                            positionzero.textContent = userGuess;
+                            winDoublePoint = 1;
+                        }
+                        else if (matchedIndex2 == 9) {
+                            var positionzero = document.getElementById("nine");
+                            positionzero.textContent = userGuess;
+                            winDoublePoint = 1;
+                        }
+
+                    } //matcher if
+
+                } //end for
+
+                //if both matchedIndex end up with -1 set loosePoint to -1
+                if (matchedIndex < 0 && matchedIndex2 < 0) {
+                    //No match detection
+
+                    //set value to -1
+                    loosePoint = -1;
+                }//end if
+
+
+                //detect if there's one or two matches
+                else {
+                    // if double match set winDoublePoint to + 1
+                    if (winDoublePoint == 1) {
+                        winDoublePoint = 2;
+                    }
+
+                    // if just one match set winPoint to + 1
+                    if (winPoint == 1) {
+                        winPoint = 2;
+                    }
+
+                }
+
+            }//end function
+
+            //call function
+            wordArray();
+
+            console.log("the winPoint after the onkey function wordarray is: " + winPoint);
+            console.log("the winDoublePoint after the onkey function wordarray is: " + winDoublePoint);
+
+            //if winPoint and winDoublepoint are 2 win two points else if winpoint == 2 win one point
+            if (winDoublePoint == 2) {
+                totalPoints = totalPoints + 2;
+            }
+            else if (winPoint == 2) {
+                totalPoints = totalPoints + 1;
+            }
+
+            console.log("total Points: " + totalPoints);
+
+            if (totalPoints >= chosenWord.length) {
+                alert("You've won!");
+            }
+
+
+            //if after calling the function loosePoint is -1 then loose point
+            if (loosePoint < 0) {
+                //update lifePnts
+                lifePnts -= 1;
+                //Show lifepoints
+                var points = document.getElementById("lifepoints");
+                points.textContent = lifePnts;
+                //initialize loosing points tracker to zero
+                loosePoint = 0;
+            }
+
+            // // store current guess in the corresponding order
+            // previousGuesses[inputTracker] = " " + userGuess;
+
+            // we need to look at the past entries of previousGuesses and avoid winpoints if current user guess is equal to any of those indexes
+
+            // loop until current entry
+            // console.log("inputTracker is: " + inputTracker);
+            // console.log("userGuess is: " + userGuess);
+
+            // for(var i=0; i<inputTracker; i++){
+
+            //     console.log("inputTracker inside for loop is: " + inputTracker);
+            //     console.log("userGuess inside for loop is: " + userGuess);
+
+
+            //     if (userGuess == " " + previousGuesses[i]){
+            //         alert("Please choose a different letter");
+            //     }
+            // }
+
+            //after onkey event add one to the input tracker
+            inputTracker = inputTracker + 1;
+
+            document.getElementById('lettersguessed').innerHTML = " " + previousGuesses;
+
+        };//end onkey event
+
+    </script>
+
+
+</body>
+
+</html>
